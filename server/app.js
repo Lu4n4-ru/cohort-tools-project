@@ -100,16 +100,16 @@ app.put("	/api/students/:studentId", (req, res) => {
 
 app.get("/api/students/cohort/:cohortId", (req, res) =>{
 
-  const {cohort} = req.query
+  const {cohort} = req.params
 
   let filter = {}
 
   if(cohort !== undefined) {
-    filter.cohortId = cohort
+    filter = {cohort: cohortId}
   }
 
   Student.find(filter)
-    .exec()
+    
     .then(students => {
       res.json(students)
     })

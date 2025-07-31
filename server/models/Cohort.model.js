@@ -8,13 +8,13 @@ const cohortSchema = new Schema({
     cohortName: String,
     program: String,
     campus: String,
-    startDate: Date,
-    endDate: Date,
-    programManager: String,
+    startDate: String,
+    endDate: String,
+    programMnager: String,
     leadTeacher: String,
     totalHours: Number
 });
 
-const Cohort = mongoose.model("Cohort", cohortSchema);
+const Cohort = mongoose.model("Cohort", cohortSchema)
 
-module.exports = Cohort;
+module.exports = Cohort

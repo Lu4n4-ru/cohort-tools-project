@@ -6,8 +6,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const PORT = 5005;
 
-const Student = require("./models/Student.model");
-const Cohort = require("./models/Cohort.model");
+const Student = require("./models/Student.model.js");
+const Cohort = require("./models/Cohort.model.js");
 
 
 mongoose
@@ -36,42 +36,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors())
 
+const studentRouter = require("./routes/student.routes.js")
+app.use("/", studentRouter);
 
-// ROUTES - https://expressjs.com/en/starter/basic-routing.html
-// Devs Team - Start working on the routes here:
-// ...
-app.get("/docs", (req, res) => {
-  res.sendFile(__dirname + "/views/docs.html");
-});
+const cohortRouter = require("./routes/cohort.routes.js");
+app.use("/", cohortRouter);
 
-// app.get("/api/cohorts", (req, res, next) => {
-//   res.json(cohorts)
-// })
-
-app.post("/api/students", (req, res) => {
-  const newStudent = req.body
-
-  Student.create(newStudent)
-    .then(studentFromDB => {
-      res.status(201).json(studentFromDB)
-    })
-    .catch(err => {
-      console.log(err)
-      res.status(500).json({error:"impossible adding student"})
-    })
-})
-
-
-app.get("/api/students", (req, res, next) => {
-  Student.find({})
-  .then((studentsFromDB) => {
-    res.status(200).json(studentsFromDB)
-  })
-  .catch(error => {
-    console.log(error)
-    res.status(500).json({error: "list not found"})
-  })
-})
 
 
 app.get("/api/students/:studentId", (req, res) => {

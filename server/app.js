@@ -8,7 +8,7 @@ const PORT = 5005;
 
 const Student = require("./models/Student.model.js");
 const Cohort = require("./models/Cohort.model.js");
-
+const User = require("./models/User.model.js")
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/cohort-tools-api")

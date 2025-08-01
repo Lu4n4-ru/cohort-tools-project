@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
+const bcrypt = require("bcryptjs")
 
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -9,6 +10,7 @@ const PORT = 5005;
 const Student = require("./models/Student.model.js");
 const Cohort = require("./models/Cohort.model.js");
 const User = require("./models/User.model.js")
+
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/cohort-tools-api")
@@ -36,12 +38,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors())
 
-const studentRouter = require("./routes/student.routes.js")
-app.use("/", studentRouter);
 
-const cohortRouter = require("./routes/cohort.routes.js");
-app.use("/", cohortRouter);
 
+app.use("/", require("./routes/student.routes.js"));
+app.use("/", require("./routes/cohort.routes.js"));
+app.use("/auth", require("./routes/auth.routes.js"))
 //middleware fn to handle errors
 
 /*app.use((err, req, res, next) => {
